@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = 'TestAnswer'
+
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Answer',
+                   'Implementation-Version': 1.0,
+		   'Main-Class': 'TestAnswer'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.eclipsesource.minimal-json:minimal-json:0.9.4'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['.']
+        }
+    }
+}
+
+run {
+    if(project.hasProperty('appArgs')) {
+        args Eval.me(appArgs)
+    }
+}
